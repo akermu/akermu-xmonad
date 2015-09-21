@@ -79,6 +79,7 @@ myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys c = mkKeymap c $
              [ ("M-S-<Return>", spawn $ terminal c)
              , ("M-<Space>", sendMessage NextLayout)
+             , ("M-<Return>", windows W.swapMaster)
              , ("M-f", sendMessage ToggleStruts)
              , ("M-o", windows W.focusDown)
              , ("M-d", windows W.swapDown)
