@@ -62,9 +62,6 @@ myPromptKeymap = M.union emacsLikeXPKeymap $ M.fromList
                  , ((controlMask, xK_m),  setSuccess True >> setDone True)
                  ]
 
-findCompl :: String -> [FilePath] -> [String]
-findCompl s = filter (\x -> isPrefixOf s x)
-             
 myPromptConfig :: XPConfig                   
 myPromptConfig = defaultXPConfig { font = "xft:Inconsolata:size=16"
                                  -- , alwaysHighlight = True
