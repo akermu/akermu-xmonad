@@ -50,12 +50,6 @@ avoidMaster = W.modify' $ \c -> case c of
     W.Stack t [] (r:rs) ->  W.Stack t [r] rs
     _                   -> c
     
-dmenuOptions :: String
-dmenuOptions = " -i -t -fn 'xft:Inconsolata:size=16' -nb black -sb white -sf black   "
-
-runDmenu :: String -> X ()
-runDmenu program = spawnHere (program ++ dmenuOptions)
-
 myPromptKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myPromptKeymap = M.union emacsLikeXPKeymap $ M.fromList
                  [ ((controlMask, xK_i) , moveCursor Next)
@@ -98,14 +92,13 @@ myKeys c = mkKeymap c $
              , ("M-p", appPrompt myPromptConfig)
              , ("M-i", spawnHere "(pgrep conky && pkill conky) || conky")
              , ("M-S-p", passPrompt myPromptConfig)
-             -- , ("M-S-p" , runDmenu "passmenu --type")
+             , ("M-S-r" , spawnHere "monitors off && monitors auto")
              , ("M-S-w" , namedScratchpadAction scratchpads "wifi-menu")
              , ("M-S-m" , namedScratchpadAction scratchpads "music")
              , ("M-S-n" , networkPrompt myPromptConfig)
              , ("M-S-v" , vpnPrompt myPromptConfig)
              , ("M-S-l" , spawnHere "dm-tool lock")
              , ("M-S-t" , spawnHere (myTerminal ++ " -e tmux"))
-             , ("M-S-<End>", runDmenu "dmenu_power")
 
                -- Media Keys
              , ("<XF86AudioPlay>", spawn "mpc toggle")
