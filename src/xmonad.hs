@@ -148,9 +148,9 @@ emacsLayout = Tall nmaster delta ratio
     ratio   = 70/100
     delta   = 3/100
 
--- myLayout ::
-myLayout = onWorkspaces ["1:emacs"] (Full ||| emacsLayout) $
-           onWorkspaces ["2:term", "3:web", "4:vm", "9:media"] (Full ||| tiled) $
+myLayout = avoidStruts $ smartBorders $
+           onWorkspaces ["1:code"] (Full ||| emacsLayout) $
+           onWorkspaces ["2:term", "3:web", "8:vm", "9:media"] (Full ||| tiled) $
            Full ||| tiled ||| simplestFloat
   where
     tiled = Tall nmaster delta ratio
@@ -192,9 +192,9 @@ main = do
              , workspaces = myWorkspaces
              , keys = myKeys
              , mouseBindings = myMouseBindings
-             , layoutHook = smartBorders $ avoidStruts myLayout
-             , manageHook = myManageHook <+> manageSpawn <+> namedScratchpadManageHook scratchpads
+             , layoutHook = myLayout
+             , manageHook = myManageHook <+> manageDocks <+> manageSpawn <+> namedScratchpadManageHook scratchpads
              , startupHook = setWMName "LG3D"
              , logHook = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP $ myPP { ppOutput = hPutStrLn h}
-             , handleEventHook = handleEventHook defaultConfig <+> fullscreenEventHook
+             , handleEventHook = handleEventHook def <+> fullscreenEventHook <+> docksEventHook
              }
