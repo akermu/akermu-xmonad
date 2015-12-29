@@ -15,18 +15,14 @@ import XMonad.Actions.SpawnOn
 import XMonad.Actions.CycleWS
 import XMonad.Prompt
 import XMonad.Prompt.Window
-import XMonad.Prompt.Input
 import XMonad.Prompt.AppPrompt
 import XMonad.Prompt.PassPrompt
 import XMonad.Prompt.VpnPrompt
 import XMonad.Prompt.NetworkPrompt
 
 import qualified Data.Map as M
-import System.Directory
-import System.FilePath
 import System.Exit
 import Control.Monad
-import Data.List
   
 myWorkspaces :: [String]
 myWorkspaces = ["1:code","2:term","3:web"] ++ fmap show [4..7] ++ ["8:vm","9:media"]
