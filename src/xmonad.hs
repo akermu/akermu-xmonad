@@ -57,12 +57,11 @@ myPromptKeymap = M.union emacsLikeXPKeymap $ M.fromList
                  ]
 
 myPromptConfig :: XPConfig                   
-myPromptConfig = defaultXPConfig { font = "xft:Inconsolata:size=16"
-                                 -- , alwaysHighlight = True
-                                 , position = Top
-                                 , height = 28
-                                 , promptKeymap = myPromptKeymap
-                                 }
+myPromptConfig = def { font = "xft:Inconsolata:size=16"
+                     , position = Top
+                     , height = 28
+                     , promptKeymap = myPromptKeymap
+                     }
 
 -- M-key = xmonad keys
 -- M-S-key = Keys to start applications
@@ -177,14 +176,14 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myPP :: PP
-myPP = defaultPP { ppOrder = take 2
-                 , ppSep = " | "
-                 }
+myPP = def { ppOrder = take 2
+           , ppSep = " | "
+           }
 
 main :: IO ()
 main = do
   h <- spawnPipe "xmobar"
-  xmonad $ ewmh defaultConfig
+  xmonad $ ewmh def
              { terminal = myTerminal
              , focusFollowsMouse = myFocusFollowsMouse
              , borderWidth = myBorderWidth
