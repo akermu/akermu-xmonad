@@ -1,4 +1,4 @@
-Config { font = "xft:Inconsolata:size=16"
+Config { font = "xft:Inconsolata:bold:size=16"
        , additionalFonts = []
        , borderColor = "grey"
        , border = BottomB
