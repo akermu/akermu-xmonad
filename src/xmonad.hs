@@ -99,9 +99,9 @@ myKeys c = mkKeymap c $
              , ("M-S-t" , spawnHere (myTerminal ++ " -e tmux"))
 
                -- Media Keys
-             , ("<XF86AudioPlay>", spawn "mpc toggle")
-             , ("<XF86AudioNext>", spawn "mpc next")
-             , ("<XF86AudioPrev>", spawn "mpc prev")
+             , ("<XF86AudioPlay>", spawn "cmus-remote -u")
+             , ("<XF86AudioNext>", spawn "cmus-remote -n")
+             , ("<XF86AudioPrev>", spawn "cmus-remote -r")
              , ("<XF86AudioRaiseVolume>", spawn "amixer set Master '2%+'")
              , ("<XF86AudioLowerVolume>", spawn "amixer set Master '2%-'")
              , ("<XF86AudioMute>", spawn "amixer set Master toggle")
@@ -156,10 +156,13 @@ myLayout = avoidStruts $ smartBorders $
     ratio   = 1/2
     delta   = 3/100
 
+wmIconName :: Query String
+wmIconName = stringProperty "WM_ICON_NAME"
+
 scratchpads :: [NamedScratchpad]
 scratchpads =
   [ NS "wifi-menu" (myTerminal ++ " -title network -e sudo wifi-menu") (title =? "network") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-  , NS "music" (myTerminal ++ " -title music -e ncmpc") (title =? "music") (customFloating $ W.RationalRect (1/8) (1/16) (3/4) (15/16))
+  , NS "music" (myTerminal ++ " -n music -e cmus") (wmIconName =? "music") (customFloating $ W.RationalRect (1/8) (1/16) (3/4) (15/16))
   ]
 
 myTerminal :: String
