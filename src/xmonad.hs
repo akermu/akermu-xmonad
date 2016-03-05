@@ -53,10 +53,13 @@ myPromptKeymap = M.union emacsLikeXPKeymap $ M.fromList
                  ]
 
 myPromptConfig :: XPConfig                   
-myPromptConfig = def { font = "xft:Inconsolata:size=16"
+myPromptConfig = def { font = "xft:Inconsolata:bold:size=16"
                      , position = Top
                      , height = 28
                      , promptKeymap = myPromptKeymap
+                     , bgColor = "black"
+                     , fgColor = "white"
+                     , alwaysHighlight = True
                      }
 
 -- M-key = xmonad keys
