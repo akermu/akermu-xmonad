@@ -25,7 +25,7 @@ import System.Exit
 import Control.Monad
   
 myWorkspaces :: [String]
-myWorkspaces = ["1:code","2:term","3:web"] ++ fmap show [4..7] ++ ["8:vm","9:media"]
+myWorkspaces = ["1:code","2:term","3:web","4:vm"] ++ fmap show [5..8] ++ ["9:media"]
 
 myManageHook :: ManageHook
 myManageHook = manageDocks <+> composeAll
@@ -148,7 +148,7 @@ emacsLayout = Tall nmaster delta ratio
 
 myLayout = avoidStruts $ smartBorders $
            onWorkspaces ["1:code"] (Full ||| emacsLayout) $
-           onWorkspaces ["2:term", "3:web", "8:vm", "9:media"] (Full ||| tiled) $
+           onWorkspaces ["2:term", "3:web", "4:vm", "9:media"] (Full ||| tiled) $
            Full ||| tiled ||| simplestFloat
   where
     tiled = Tall nmaster delta ratio
