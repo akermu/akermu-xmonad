@@ -28,15 +28,15 @@ getApplicationDirs :: IO [String]
 getApplicationDirs = do
   homedir <- getHomeDirectory
   filterM doesDirectoryExist
-    ("/usr/share/applications" :
-     [homedir ++ "/.local/share/applications"])
+    [homedir ++ "/.local/share/applications",
+     "/usr/share/applications"]
 
 getApplicationList :: IO [String]
 getApplicationList = do
   dirs <- getApplicationDirs
   files <- forM dirs $ \name -> 
     filterDirRecursive (\file -> takeExtension file == ".desktop") name
-  return $ sort $ takeBaseName <$> concat files
+  return $ sort $ nub $ takeBaseName <$> concat files
 
 findApp :: String -> IO (Maybe String)
 findApp app = do
