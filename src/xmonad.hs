@@ -23,15 +23,17 @@ import XMonad.Prompt.NetworkPrompt
 import qualified Data.Map as M
 import System.Exit
 import Control.Monad
-  
+
 myWorkspaces :: [String]
 myWorkspaces = ["1:code","2:term","3:web","4:vm"] ++ fmap show [5..8] ++ ["9:media"]
 
 myManageHook :: ManageHook
 myManageHook = manageDocks <+> composeAll
-               [ className =? "Emacs" --> viewShift "1:code"
+               [ title =? "org-capture" --> doCenterFloat
+               , (className =? "Emacs" <&&> title =? "emacs")  --> viewShift "1:code"
                , title =? "tmux" --> viewShift "2:term"
                , className =? "Firefox" --> viewShift "3:web"
+               , className =? "Spicy" --> viewShift "4:vm"
                , className =? "mpv" --> doFullFloat
                , className =? "mpv" --> viewShift "9:media"
                , className =? "Pinentry" --> doCenterFloat
@@ -41,18 +43,18 @@ myManageHook = manageDocks <+> composeAll
                ]
     where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
-avoidMaster :: W.StackSet i l a s sd -> W.StackSet i l a s sd          
+avoidMaster :: W.StackSet i l a s sd -> W.StackSet i l a s sd
 avoidMaster = W.modify' $ \c -> case c of
     W.Stack t [] (r:rs) ->  W.Stack t [r] rs
     _                   -> c
-    
+
 myPromptKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myPromptKeymap = M.union emacsLikeXPKeymap $ M.fromList
                  [ ((controlMask, xK_i) , moveCursor Next)
                  , ((controlMask, xK_m),  setSuccess True >> setDone True)
                  ]
 
-myPromptConfig :: XPConfig                   
+myPromptConfig :: XPConfig
 myPromptConfig = def { font = "xft:Inconsolata:bold:size=16"
                      , position = Top
                      , height = 28
@@ -61,6 +63,9 @@ myPromptConfig = def { font = "xft:Inconsolata:bold:size=16"
                      , fgColor = "white"
                      , alwaysHighlight = True
                      }
+
+myOrgCapture :: String
+myOrgCapture = "emacs --name \"org-capture\" --eval '(akermu/org-capture-and-exit)'"
 
 -- M-key = xmonad keys
 -- M-S-key = Keys to start applications
@@ -97,6 +102,7 @@ myKeys c = mkKeymap c $
              , ("M-S-v" , vpnPrompt myPromptConfig)
              , ("M-S-l" , spawnHere "dm-tool lock")
              , ("M-S-t" , spawnHere (myTerminal ++ " -e tmux"))
+             , ("M-c", spawnHere myOrgCapture)
 
                -- Media Keys
              , ("<XF86AudioPlay>", spawn "cmus-remote -u")
