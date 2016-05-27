@@ -2,6 +2,7 @@ module XMonad.Prompt.NetworkPrompt (
   networkPrompt
   ) where
 
+import Data.List
 import XMonad
 import XMonad.Prompt hiding ( pasteString )
 import XMonad.Prompt.Common
@@ -29,7 +30,7 @@ getNetworkList :: IO [String]
 getNetworkList = do
   names <- getDirectoryContents networkDir
   files <- filterM (\name -> doesFileExist $ networkDir </> name) names
-  filterNetworkList files
+  filterNetworkList (sort files)
 
 filterNetworkList :: [FilePath] -> IO [String]
 filterNetworkList files = return $ fmap takeBaseName files
