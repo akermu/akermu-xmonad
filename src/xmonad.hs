@@ -25,14 +25,13 @@ import System.Exit
 import Control.Monad
 
 myWorkspaces :: [String]
-myWorkspaces = ["1:code","2:term","3:web","4:vm"] ++ fmap show [5..8] ++ ["9:media"]
+myWorkspaces = ["1:code","2:web","3","4:vm"] ++ fmap show [5..8] ++ ["9:media"]
 
 myManageHook :: ManageHook
 myManageHook = manageDocks <+> composeAll
                [ title =? "org-capture" --> doCenterFloat
-               , (className =? "Emacs" <&&> title =? "emacs")  --> viewShift "1:code"
-               , title =? "tmux" --> viewShift "2:term"
-               , className =? "Firefox" --> viewShift "3:web"
+               , className =? "Emacs" --> viewShift "1:code"
+               , className =? "Firefox" --> viewShift "2:web"
                , className =? "Spicy" --> viewShift "4:vm"
                , className =? "mpv" --> doFullFloat
                , className =? "mpv" --> viewShift "9:media"
@@ -153,8 +152,8 @@ emacsLayout = Tall nmaster delta ratio
     delta   = 3/100
 
 myLayout = avoidStruts $ smartBorders $
-           onWorkspaces ["1:code"] (Full ||| emacsLayout) $
-           onWorkspaces ["2:term", "3:web", "4:vm", "9:media"] (Full ||| tiled) $
+           onWorkspaces ["1:code"] (emacsLayout ||| Full) $
+           onWorkspaces ["2:web", "3", "4:vm", "9:media"] (Full ||| tiled) $
            Full ||| tiled ||| simplestFloat
   where
     tiled = Tall nmaster delta ratio
