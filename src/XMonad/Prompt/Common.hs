@@ -9,7 +9,7 @@ import System.Directory ( doesDirectoryExist, getDirectoryContents )
 import System.FilePath ( (</>) )
 import Data.List
 import Data.Char
-  
+
 -- Real World Haskell
 getRecursiveContents :: FilePath -> IO [FilePath]
 getRecursiveContents topPath = do
@@ -33,6 +33,11 @@ filterDirRecursive pred dir  = do
 makeCompletionFunc :: IO [String] -> ComplFunction
 makeCompletionFunc list input = do
   xs <- list
-  return $ filter (\name -> fmap toLower input
-                            `isSubsequenceOf`
-                            fmap toLower name) xs
+  return $ complFunction xs input
+
+complFunction :: [String] -> String -> [String]
+complFunction xs input = filter (\name -> and (fmap (`isInfixOf` lowerCase name)
+                                               (lowerCase <$> words input))) xs
+
+lowerCase :: String -> String
+lowerCase = fmap toLower
