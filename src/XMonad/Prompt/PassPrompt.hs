@@ -37,11 +37,10 @@ filterPassList :: [FilePath] -> IO [String]
 filterPassList files = do
   store <- getPassStore
   return $ fmap (dropExtension <$> makeRelative store) files
-  
+
 typePass :: String -> X ()
 typePass input = do
   completions <- liftIO $ passCompl input
   unless (null completions) $ do
     let passFile = head completions
-    spawn $ "/usr/bin/pass -c " ++ passFile
-    spawn "notify-send 'On Clipboard'" 
+    spawn $ "/usr/bin/pass -c " ++ passFile ++ " && notify-send 'On clipboard!'"
