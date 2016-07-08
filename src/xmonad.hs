@@ -33,6 +33,7 @@ myManageHook = manageDocks <+> composeAll
                , className =? "Emacs" --> viewShift "1:code"
                , className =? "Firefox" --> viewShift "2:web"
                , className =? "Spicy" --> viewShift "4:vm"
+               , className =? "VirtualBox" --> viewShift "4:vm"
                , className =? "mpv" --> doFullFloat
                , className =? "mpv" --> viewShift "9:media"
                , className =? "Pinentry" --> doCenterFloat
