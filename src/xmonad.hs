@@ -154,8 +154,8 @@ emacsLayout = Tall nmaster delta ratio
 
 myLayout = avoidStruts $ smartBorders $
            onWorkspaces ["1:code"] (emacsLayout ||| Full) $
-           onWorkspaces ["2:web", "3", "4:vm", "9:media"] (Full ||| tiled) $
-           Full ||| tiled ||| simplestFloat
+           onWorkspaces ["4:vm"] (tiled ||| Full) $
+           Full ||| tiled
   where
     tiled = Tall nmaster delta ratio
     nmaster = 1
