@@ -25,7 +25,8 @@ vpnPrompt :: XPConfig -> X ()
 vpnPrompt c = do
   running <- liftIO isVpnRunning
   if running
-     then mkXPrompt StopVpn c (mkComplFunFromList ["y", "yes", "n", "no"]) stopVpn        else mkXPrompt Vpn c vpnCompl startVpn
+    then mkXPrompt StopVpn c (mkComplFunFromList ["y", "yes", "n", "no"]) stopVpn
+    else mkXPrompt Vpn c vpnCompl startVpn
 
 vpnDir :: FilePath
 vpnDir = "/etc/openvpn/"
@@ -41,7 +42,7 @@ getVpnList = do
 
 filterVpnList :: [FilePath] -> IO [String]
 filterVpnList files = return $ fmap dropExtension files
-  
+
 startVpn :: String -> X ()
 startVpn input = do
     completions <- liftIO $ vpnCompl input
@@ -65,7 +66,7 @@ isVpnRunning = do
     Just _ -> return True
     Nothing -> return False
 
-getRunningVpn :: IO (Maybe String)  
+getRunningVpn :: IO (Maybe String)
 getRunningVpn = do
   names <- getDirectoryContents "/run"
   let xs = filter (\name -> isPrefixOf "openvpn@" name &&
@@ -73,4 +74,3 @@ getRunningVpn = do
   if length xs == 1
     then return $ stripPrefix "openvpn@" $ takeBaseName $ head xs
     else return Nothing
-
