@@ -103,6 +103,7 @@ myKeys c = mkKeymap c $
              , ("M-S-l" , spawnHere "dm-tool lock")
              , ("M-S-t" , spawnHere (myTerminal ++ " -e tmux"))
              , ("M-c", spawnHere myOrgCapture)
+             , ("M-0" , spawnHere "sleep 1s && xset s activate")
 
                -- Media Keys
              , ("<XF86AudioPlay>", spawn "mpc toggle")
