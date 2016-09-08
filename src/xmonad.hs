@@ -7,7 +7,6 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
-import XMonad.Layout.SimplestFloat
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.EZConfig
