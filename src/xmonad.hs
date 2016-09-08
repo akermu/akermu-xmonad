@@ -149,7 +149,7 @@ emacsLayout :: Tall a
 emacsLayout = Tall nmaster delta ratio
   where
     nmaster = 1
-    ratio   = 70/100
+    ratio   = 3/5
     delta   = 3/100
 
 myLayout = avoidStruts $ smartBorders $
