@@ -7,6 +7,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.LayoutModifier
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.EZConfig
@@ -152,10 +153,11 @@ emacsLayout = Tall nmaster delta ratio
     ratio   = 3/5
     delta   = 3/100
 
+myLayout :: ModifiedLayout AvoidStruts (ModifiedLayout SmartBorder
+   (PerWorkspace (Choose Tall Full) (Choose Tall Full))) Window
 myLayout = avoidStruts $ smartBorders $
            onWorkspaces ["1:code"] (emacsLayout ||| Full) $
-           onWorkspaces ["4:vm"] (tiled ||| Full) $
-           Full ||| tiled
+           tiled ||| Full
   where
     tiled = Tall nmaster delta ratio
     nmaster = 1
