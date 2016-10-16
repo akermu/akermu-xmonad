@@ -20,11 +20,12 @@ Config { font = "xft:Inconsolata:bold:size=16"
          , Run Network "wlp3s0" ["-t", "<txbar><icon=wifi.xpm/>", "-W", "0"] 10
          , Run BatteryP ["BAT0", "BAT1"] ["-t", "<icon=battery-full.xpm/> <left>"] 60
          , Run Brightness ["-t", "<icon=lightbulb.xpm/> <percent>", "--", "-D", "intel_backlight"] 10
-         , Run Com "sh" ["-c", "amixer get 'Master' | grep -oe '\\[.*%\\]' | tr -d '[]%'"] "volume" 10
+         , Run Com "bash" ["-c", "amixer get 'Master' | grep -oe '\\[.*%\\]' | tr -d '[]%'"] "volume" 10
          , Run Com "bash" ["-c", "if [ -e /run/openvpn@*.pid ]; then echo '<icon=lock-locked.xpm/>'; else echo '<icon=lock-unlocked.xpm/>'; fi"] "vpn" 60
+         , Run Com "bash" ["-c", "if [ -e ~/.emacs.d/var/task ]; then cat ~/.emacs.d/var/task; fi"] "task" 60
          , Run Date "%a %d.%m.%y %H:%M" "date" 10
          ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% } %date% { %enp0s25% %wlp3s0% %vpn% <icon=volume-high.xpm/> %volume% %bright% %battery%"
+       , template = "%StdinReader% } %date% { %task% %enp0s25% %wlp3s0% %vpn% <icon=volume-high.xpm/> %volume% %bright% %battery%"
        }
