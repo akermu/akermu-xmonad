@@ -35,6 +35,7 @@ myManageHook = manageDocks <+> composeAll
                , className =? "Spicy" --> viewShift "4:vm"
                , className =? "VirtualBox" --> viewShift "4:vm"
                , className =? "mpv" --> doFullFloat
+               , className =? "Deluge" --> viewShift "9:media"
                , className =? "mpv" --> viewShift "9:media"
                , className =? "Pinentry" --> doCenterFloat
                , isDialog --> doCenterFloat
