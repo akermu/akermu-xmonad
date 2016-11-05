@@ -20,7 +20,7 @@ Config { font = "xft:Inconsolata:bold:size=16"
          , Run Network "wlp3s0" ["-t", "<txbar><icon=wifi.xpm/>", "-W", "0"] 10
          , Run BatteryP ["BAT0", "BAT1"] ["-t", "<icon=battery-full.xpm/> <left>"] 60
          , Run Brightness ["-t", "<icon=lightbulb.xpm/> <percent>", "--", "-D", "intel_backlight"] 10
-         , Run Com "bash" ["-c", "amixer get 'Master' | grep -oe '\\[.*%\\]' | tr -d '[]%'"] "volume" 10
+         , Run Com "ponymix" ["get-volume"] "volume" 10
          , Run Com "bash" ["-c", "if [ -e /run/openvpn@*.pid ]; then echo '<icon=lock-locked.xpm/>'; else echo '<icon=lock-unlocked.xpm/>'; fi"] "vpn" 60
          , Run Com "bash" ["-c", "emacsclient -e \"(progn (require 'org-clock) (if (org-clocking-p) (substring-no-properties (org-clock-get-clock-string)) \\\"\\\"))\" | tr -d '\"'"] "task" 60
          , Run Date "%a %d.%m.%y %H:%M" "date" 10

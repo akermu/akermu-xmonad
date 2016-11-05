@@ -34,9 +34,10 @@ myManageHook = manageDocks <+> composeAll
                , className =? "Firefox" --> viewShift "2:web"
                , className =? "Spicy" --> viewShift "4:vm"
                , className =? "VirtualBox" --> viewShift "4:vm"
-               , className =? "mpv" --> doFullFloat
                , className =? "Deluge" --> viewShift "9:media"
                , className =? "mpv" --> viewShift "9:media"
+               , className =? "mpv" --> doFullFloat
+               , className =? "Pavucontrol" --> doCenterFloat
                , className =? "Pinentry" --> doCenterFloat
                , isDialog --> doCenterFloat
                , isFullscreen --> doFullFloat
@@ -110,9 +111,9 @@ myKeys c = mkKeymap c $
              , ("<XF86AudioPlay>", spawn "mpc toggle")
              , ("<XF86AudioNext>", spawn "mpc next")
              , ("<XF86AudioPrev>", spawn "mpc prev")
-             , ("<XF86AudioRaiseVolume>", spawn "amixer set Master '2%+'")
-             , ("<XF86AudioLowerVolume>", spawn "amixer set Master '2%-'")
-             , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+             , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
+             , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+             , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
              , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 5")
              , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 5")
              ]
