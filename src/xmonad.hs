@@ -100,6 +100,7 @@ myKeys c = mkKeymap c $
              , ("M-S-r" , spawnHere "monitors off && monitors auto")
              , ("M-S-w" , namedScratchpadAction scratchpads "wifi-menu")
              , ("M-S-m" , namedScratchpadAction scratchpads "music")
+             , ("M-S-a" , namedScratchpadAction scratchpads "audio")
              , ("M-S-n" , networkPrompt myPromptConfig)
              , ("M-S-v" , vpnPrompt myPromptConfig)
              , ("M-S-l" , spawnHere "dm-tool lock")
@@ -170,6 +171,7 @@ scratchpads :: [NamedScratchpad]
 scratchpads =
   [ NS "wifi-menu" (myTerminal ++ " -title network -e sudo wifi-menu") (title =? "network") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
   , NS "music" (myTerminal ++ " -title music -e ncmpcpp") (title =? "music") (customFloating $ W.RationalRect (1/8) (1/16) (3/4) (15/16))
+  , NS "audio" "pavucontrol" (className =? "Pavucontrol") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
   ]
 
 myTerminal :: String
