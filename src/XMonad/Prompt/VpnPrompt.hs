@@ -29,7 +29,7 @@ vpnPrompt c = do
     else mkXPrompt Vpn c vpnCompl startVpn
 
 vpnDir :: FilePath
-vpnDir = "/etc/openvpn/"
+vpnDir = "/etc/openvpn/client/"
 
 vpnCompl :: ComplFunction
 vpnCompl = makeCompletionFunc getVpnList
@@ -49,14 +49,14 @@ startVpn input = do
     unless (null completions) $ do
       let vpnFile = head completions
       liftIO $ spawn $
-        "sudo systemctl start openvpn@" ++ vpnFile ++ ".service"
+        "sudo systemctl start openvpn-client@" ++ vpnFile ++ ".service"
 
 stopVpn :: String -> X ()
 stopVpn s = if s `elem` ["y", "yes"]
               then liftIO $ do
                 vpn <- getRunningVpn
                 case vpn of
-                  Just s -> spawn $ "sudo systemctl stop openvpn@" ++ s ++ ".service"
+                  Just s -> spawn $ "sudo systemctl stop openvpn-client@" ++ s ++ ".service"
               else spawn "notify-send -u critical Not found"
 
 isVpnRunning :: IO Bool
@@ -69,8 +69,8 @@ isVpnRunning = do
 getRunningVpn :: IO (Maybe String)
 getRunningVpn = do
   names <- getDirectoryContents "/run"
-  let xs = filter (\name -> isPrefixOf "openvpn@" name &&
+  let xs = filter (\name -> isPrefixOf "openvpn-client@" name &&
                             isSuffixOf ".pid" name) names
   if length xs == 1
-    then return $ stripPrefix "openvpn@" $ takeBaseName $ head xs
+    then return $ stripPrefix "openvpn-client@" $ takeBaseName $ head xs
     else return Nothing
