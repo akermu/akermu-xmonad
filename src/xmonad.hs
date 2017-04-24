@@ -208,5 +208,5 @@ main = do
              , manageHook = myManageHook <+> manageDocks <+> manageSpawn <+> namedScratchpadManageHook scratchpads
              , startupHook = setWMName "LG3D"
              , logHook = dynamicLogWithPP . namedScratchpadFilterOutWorkspacePP $ myPP { ppOutput = hPutStrLn h}
-             , handleEventHook = handleEventHook def <+> fullscreenEventHook <+> docksEventHook
+             , handleEventHook = handleEventHook def <+> docksEventHook <+> fullscreenEventHook
              }
